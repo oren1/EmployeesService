@@ -14,7 +14,7 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
 (0, Routes_1.default)(app);
 app.get('/', (req, res) => {
-    res.send('Users Service');
+    res.send('Employees Service');
 });
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
