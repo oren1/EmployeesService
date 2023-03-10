@@ -1,15 +1,15 @@
-type UserType = {
+type EmployeeType = {
     id: string
     name: string
     lastName: string
     age: number
 }
-export class User {
+export class Employee {
     id: string
     name: string
     lastName: string
     age: number
-    constructor( { id, name, lastName, age}: UserType) {
+    constructor( { id, name, lastName, age}: EmployeeType) {
         this.id = id
         this.name = name
         this.lastName = lastName
@@ -19,40 +19,40 @@ export class User {
 
 class DB {
     userIdentifier = 1
-    users: {[key: string]: User}
+    employees: {[key: string]: Employee}
     constructor() {
-      this.users = {}
+      this.employees = {}
     }
 
-    addUser(user: UserType) {
+    addEmployee(user: EmployeeType) {
         const id = String(this.userIdentifier)
         user.id = id
-        const newUser = new User(user)
-        this.users[id] = newUser
+        const newEmployee = new Employee(user)
+        this.employees[id] = newEmployee
         this.userIdentifier++
-        return newUser
+        return newEmployee
     }
 
-    allUsers() {
-        return this.users
+    allEmployees() {
+        return this.employees
     }
 
-    userForId(id: string) {
-        return this.users[id]
+    employeeForId(id: string) {
+        return this.employees[id]
     }
 
-    updateUser(newUser: UserType) {
-        const old_user = this.users[newUser.id]
-        this.users[newUser.id] = {
-            ...old_user,
-            ...newUser
+    updateEmployee(newEmployee: EmployeeType) {
+        const old_employee = this.employees[newEmployee.id]
+        this.employees[newEmployee.id] = {
+            ...old_employee,
+            ...newEmployee
         }
-        return this.users[newUser.id]
+        return this.employees[newEmployee.id]
     }
 
-    deleteUser(id: string) {
-       const user = this.users[id]
-       delete this.users[id]
+    deleteEmployee(id: string) {
+       const user = this.employees[id]
+       delete this.employees[id]
        return user 
     }
 }

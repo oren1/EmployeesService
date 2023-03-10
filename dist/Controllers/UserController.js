@@ -3,28 +3,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.listUsers = exports.getUser = exports.createUser = void 0;
+exports.deleteEmployee = exports.updateEmployee = exports.listEmployees = exports.getEmployee = exports.createEmployee = void 0;
 const db_1 = __importDefault(require("../Data/db"));
-const createUser = (req, res) => {
-    const user = db_1.default.addUser(req.body);
+const createEmployee = (req, res) => {
+    const user = db_1.default.addEmployee(req.body);
     res.json(user);
 };
-exports.createUser = createUser;
-const getUser = (req, res) => {
+exports.createEmployee = createEmployee;
+const getEmployee = (req, res) => {
+    const employeeId = req.body.id;
+    const employee = db_1.default.employeeForId(employeeId);
+    if (employee == null) {
+        res.json({ error: `user with id ${employeeId} doesn't exist` });
+    }
+    res.json(employee);
+};
+exports.getEmployee = getEmployee;
+const listEmployees = (req, res) => {
+    res.json(db_1.default.employees);
+};
+exports.listEmployees = listEmployees;
+const updateEmployee = (req, res) => {
+    res.json(db_1.default.updateEmployee(req.body));
+};
+exports.updateEmployee = updateEmployee;
+const deleteEmployee = (req, res) => {
     const userId = req.body.id;
-    res.json(db_1.default.userForId(userId));
+    res.json(db_1.default.deleteEmployee(userId));
 };
-exports.getUser = getUser;
-const listUsers = (req, res) => {
-    res.json(db_1.default.users);
-};
-exports.listUsers = listUsers;
-const updateUser = (req, res) => {
-    res.json(db_1.default.updateUser(req.body));
-};
-exports.updateUser = updateUser;
-const deleteUser = (req, res) => {
-    const userId = req.body.id;
-    res.json(db_1.default.deleteUser(userId));
-};
-exports.deleteUser = deleteUser;
+exports.deleteEmployee = deleteEmployee;

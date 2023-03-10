@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-class User {
+exports.Employee = void 0;
+class Employee {
     constructor({ id, name, lastName, age }) {
         this.id = id;
         this.name = name;
@@ -9,34 +9,34 @@ class User {
         this.age = age;
     }
 }
-exports.User = User;
+exports.Employee = Employee;
 class DB {
     constructor() {
         this.userIdentifier = 1;
-        this.users = {};
+        this.employees = {};
     }
-    addUser(user) {
+    addEmployee(user) {
         const id = String(this.userIdentifier);
         user.id = id;
-        const newUser = new User(user);
-        this.users[id] = newUser;
+        const newEmployee = new Employee(user);
+        this.employees[id] = newEmployee;
         this.userIdentifier++;
-        return newUser;
+        return newEmployee;
     }
-    allUsers() {
-        return this.users;
+    allEmployees() {
+        return this.employees;
     }
-    userForId(id) {
-        return this.users[id];
+    employeeForId(id) {
+        return this.employees[id];
     }
-    updateUser(newUser) {
-        const old_user = this.users[newUser.id];
-        this.users[newUser.id] = Object.assign(Object.assign({}, old_user), newUser);
-        return this.users[newUser.id];
+    updateEmployee(newEmployee) {
+        const old_employee = this.employees[newEmployee.id];
+        this.employees[newEmployee.id] = Object.assign(Object.assign({}, old_employee), newEmployee);
+        return this.employees[newEmployee.id];
     }
-    deleteUser(id) {
-        const user = this.users[id];
-        delete this.users[id];
+    deleteEmployee(id) {
+        const user = this.employees[id];
+        delete this.employees[id];
         return user;
     }
 }
