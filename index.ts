@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 setRoutes(app)
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Users Service');
+  res.send('Employees Service');
 });
 
 app.listen(port, () => {
