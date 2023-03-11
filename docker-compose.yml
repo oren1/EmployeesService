@@ -1,0 +1,17 @@
+services:
+
+  app: #service name. will be the host name.
+    image: node:18-alpine # the base image we start from
+    command: sh -c "npm run build && npm run start" #the command to run when starting the container
+    ports: #port mapping.(HOST_PORT:CONTAINERS_PORT). to be able to reach the container from our host we expose it 
+    # by mapping the container's port to some port in our host.
+      - 3000:3000 
+    working_dir: /app # the directory of which the commands will run from and basicly has the project hirarcy like 
+    #our working directory 
+    volumes: # connects the containers directory(right side) to the projects root directory(left side)
+    #and every change made to the containers directory will apply to the root directory of our project.
+      - ./:/app
+    environment: #environment variables to pass to the container
+       PORT: '3000'
+
+

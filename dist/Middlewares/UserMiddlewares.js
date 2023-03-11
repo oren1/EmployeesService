@@ -11,11 +11,9 @@ const validateCreateUser = (req, res, next) => {
 };
 exports.validateCreateUser = validateCreateUser;
 const validateUserIdExists = (req, res, next) => {
-    if ('id' in req.body) {
-        next();
+    if (!req.body.id) {
+        return res.json({ error: 'please include user id' });
     }
-    else {
-        res.json({ error: 'please include user id' });
-    }
+    next();
 };
 exports.validateUserIdExists = validateUserIdExists;
