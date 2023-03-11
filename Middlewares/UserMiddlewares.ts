@@ -1,21 +1,19 @@
 import { Request, Response, NextFunction } from "express"
 
 export const validateCreateUser = (req: Request, res: Response, next: NextFunction) => {
-    if ('name' in req.body && 
-        'lastName' in req.body && 
-        'age' in req.body) {
-        next()
+    if (!req.body.name || 
+        !req.body.lastName || 
+        !req.body.age) {
+        return res.json({error: 'not all fields are filled'})
     }
-    else {
-        res.json({error: 'not all fields are filled'})
-    }
+
+    next();
 }
 
 export const validateUserIdExists = (req: Request, res: Response, next: NextFunction) => {
-    if ('id' in req.body) {
-        next()
+    if (!req.body.id) {
+        return res.json({error: 'please include user id'})
     }
-    else {
-        res.json({error: 'please include user id'})
-    }
+
+    next()
 }

@@ -2,14 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateUserIdExists = exports.validateCreateUser = void 0;
 const validateCreateUser = (req, res, next) => {
-    if ('name' in req.body &&
-        'lastName' in req.body &&
-        'age' in req.body) {
-        next();
+    if (!req.body.name ||
+        !req.body.lastName ||
+        !req.body.age) {
+        return res.json({ error: 'not all fields are filled' });
     }
-    else {
-        res.json({ error: 'not all fields are filled' });
-    }
+    next();
 };
 exports.validateCreateUser = validateCreateUser;
 const validateUserIdExists = (req, res, next) => {

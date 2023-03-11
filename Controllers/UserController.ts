@@ -1,15 +1,14 @@
 import { Request, Response } from 'express';
-import db, {Employee} from '../Data/db';
-
+import employeesService from '../Services/EmployeesService';
 
 export const createEmployee = (req: Request, res: Response) => {
-    const user = db.addEmployee(req.body)
+    const user = employeesService.addEmployee(req.body)
     res.json(user)
 }
 
 export const getEmployee = (req: Request, res: Response) => {
     const employeeId = req.body.id
-    const employee = db.employeeForId(employeeId)
+    const employee = employeesService.employeeForId(employeeId)
     if (employee == null) {
         res.json({error: `user with id ${employeeId} doesn't exist`})
     }
@@ -17,14 +16,19 @@ export const getEmployee = (req: Request, res: Response) => {
 }
 
 export const listEmployees = (req: Request, res: Response) => {
-    res.json(db.employees)
+    res.json(employeesService.allEmployees())
 }
 
 export const updateEmployee = (req: Request, res: Response) => {
-    res.json(db.updateEmployee(req.body))
+    res.json(employeesService.updateEmployee(req.body))
 }
 
 export const deleteEmployee = (req: Request, res: Response) => {
-    const userId = req.body.id
-    res.json(db.deleteEmployee(userId))    
+    const employeeId = req.body.id
+    const deletedEmployee = employeesService.deleteEmployee(employeeId)
+    if(!deletedEmployee) {
+       return res.json({error: `user with id ${employeeId} doesn't exist`})
+    }
+
+    res.json()    
 }
